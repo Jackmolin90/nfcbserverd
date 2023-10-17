@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.mapper.NodeExitMapper">
+    <resultMap id="BaseResultMapPunished" type="com.imooc.pojo.NodeExit">
+        <result column="id"  property="id" jdbcType="BIGINT"/>
+        <result column="timestamp"  property="timeStamp" jdbcType="TIMESTAMP"/>
+        <result column="addressname"  property="addressName" jdbcType="VARCHAR"/>
+        <result column="pledgeamount"  property="pledgeAmount" jdbcType="DECIMAL"/>
+        <result column="deductionamount"  property="deductionAmount" jdbcType="DECIMAL"/>
+        <result column="tractamount"  property="tractAmount" jdbcType="DECIMAL"/>
+        <result column="lockstartnumber"  property="lockStartNumber" jdbcType="BIGINT"/>
+        <result column="locknumber"  property="lockNumber" jdbcType="BIGINT"/>
+        <result column="releasenumber"  property="releaseNumber" jdbcType="BIGINT"/>
+        <result column="releaseinterval"  property="releaseInterval" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="getPageList" resultMap="BaseResultMapPunished">
+        select  * from node_exit a
+        <where>
+            <if test="blockQueryForm.toAddr!=null and blockQueryForm.toAddr!='' ">
+                and a.addressname=#{blockQueryForm.toAddr}
+            </if>
+        </where>
+        ORDER BY a.id DESC limit #{blockQueryForm.current}, #{blockQueryForm.size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long">
+       select count(*) from node_exit
+
+    </select>
+
+
+    <select id="getNodePageList" resultType="com.imooc.pojo.NfcNodeMiner" parameterType="com.imooc.pojo.Form.NfcNodeMinerQueryForm">
+        select  * from nfc_node_miner a
+        <where>
+            <if test="nfcNodeMinerQueryForm.address!=null and nfcNodeMinerQueryForm.address!='' ">
+                and ( a.node_address=#{nfcNodeMinerQueryForm.address} or   a.revenue_address=#{nfcNodeMinerQueryForm.address} )
+            </if>
+            <if test="nfcNodeMinerQueryForm.node_address!=null and nfcNodeMinerQueryForm.node_address!='' ">
+                and a.node_address=#{nfcNodeMinerQueryForm.node_address}
+            </if>
+            <if test="nfcNodeMinerQueryForm.revenue_address!=null and nfcNodeMinerQueryForm.revenue_address!='' ">
+                and a.revenue_address=#{nfcNodeMinerQueryForm.revenue_address}
+            </if>
+            <if test="nfcNodeMinerQueryForm.node_type!=null and nfcNodeMinerQueryForm.node_type!='' ">
+                and a.node_type=#{nfcNodeMinerQueryForm.node_type}
+            </if>
+        </where>
+        ORDER BY join_time DESC limit #{nfcNodeMinerQueryForm.current}, #{nfcNodeMinerQueryForm.size}
+    </select>
+
+    <select id="getNodeTotal" resultType="java.lang.Long" parameterType="com.imooc.pojo.Form.NfcNodeMinerQueryForm">
+        select count(*) from nfc_node_miner a
+        <where>
+            <if test="nfcNodeMinerQueryForm.address!=null and nfcNodeMinerQueryForm.address!='' ">
+                and ( a.node_address=#{nfcNodeMinerQueryForm.address} or   a.revenue_address=#{nfcNodeMinerQueryForm.address} )
+            </if>
+            <if test="nfcNodeMinerQueryForm.node_address!=null and nfcNodeMinerQueryForm.node_address!='' ">
+                and a.node_address=#{nfcNodeMinerQueryForm.node_address}
+            </if>
+            <if test="nfcNodeMinerQueryForm.revenue_address!=null and nfcNodeMinerQueryForm.revenue_address!='' ">
+                and a.revenue_address=#{nfcNodeMinerQueryForm.revenue_address}
+            </if>
+            <if test="nfcNodeMinerQueryForm.node_type!=null and nfcNodeMinerQueryForm.node_type!='' ">
+                and a.node_type=#{nfcNodeMinerQueryForm.node_type}
+            </if>
+        </where>
+    </select>
+
+    <select id="getNode" resultType="com.imooc.pojo.NfcNodeMiner" parameterType="com.imooc.pojo.Form.NfcNodeMinerQueryForm">
+        select  * from nfc_node_miner a
+            where a.node_address=#{nfcNodeMinerQueryForm.node_address}
+    </select>
+
+    <select id="getNodeByRev" resultType="java.lang.Long"  parameterType="com.imooc.pojo.Form.NfcNodeMinerQueryForm">
+        select  count(1) from nfc_node_miner a
+        where a.revenue_address=#{nfcNodeMinerQueryForm.revenue_address}
+    </select>
+
+    <select id="getNodeExistRealse" resultType="java.lang.Long">
+        select count(1) from transfer_miner where type=3
+                                       and address=#{address}
+         <![CDATA[ and   totalamount>releaseamount ]]>
+    </select>
+
+    <insert id="saveOrUpdateNodeMiner">
+        insert  into nfc_node_miner
+        (
+            node_address,node_type,pledge_amount,sync_time,join_time,blocknumber
+        ) values
+            (
+                #{nfcNodeMiner.node_address},#{nfcNodeMiner.node_type},#{nfcNodeMiner.pledge_amount},
+                #{nfcNodeMiner.join_time},#{nfcNodeMiner.sync_time},#{nfcNodeMiner.blocknumber}
+            )ON DUPLICATE KEY UPDATE
+            node_type=values(node_type),
+            pledge_amount=VALUES(pledge_amount),
+            sync_time=VALUES(sync_time),
+            join_time=VALUES(join_time)
+    </insert>
+
+    <update id="updateNodeMiner">
+        update nfc_node_miner set sync_time=#{nfcNodeMiner.sync_time}
+        <if test="nfcNodeMiner.node_type!=null">
+            , node_type = #{nfcNodeMiner.node_type}
+        </if>
+        <if test="nfcNodeMiner.revenue_address!=null">
+            , revenue_address = #{nfcNodeMiner.revenue_address}
+        </if>
+        <if test="nfcNodeMiner.fractions!=null">
+            , fractions = #{nfcNodeMiner.fractions}
+        </if>
+        <if test="nfcNodeMiner.pledge_amount!=null">
+            , pledge_amount = #{nfcNodeMiner.pledge_amount}
+        </if>
+        <if test="nfcNodeMiner.blocknumber!=null">
+            , blocknumber = #{nfcNodeMiner.blocknumber}
+        </if>
+        <if test="nfcNodeMiner.join_time!=null">
+            , join_time = #{nfcNodeMiner.join_time}
+        </if>
+        where node_address=#{nfcNodeMiner.node_address}
+    </update>
+
+    <select id="getNodeListNotExit" resultType="com.imooc.pojo.NfcNodeMiner">
+        select  * from nfc_node_miner a where node_type in (1,2)
+    </select>
+
+    <update id="updateNodeStatus">
+        update nfc_node_miner set node_type=#{nfcNodeMiner.node_type}, sync_time=#{nfcNodeMiner.sync_time}
+        where node_type in (1,2) and   node_address=#{nfcNodeMiner.node_address}
+    </update>
+
+    <update id="updateNodeBatch" parameterType="java.util.List">
+        update nfc_node_miner
+        set fractions=0
+        where node_address not  in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="getLeftamount" resultType="java.math.BigDecimal">
+        select totalamount-releaseamount from `transfer_miner` a
+        where a.address=#{address} and a.type=#{type} ORDER BY blocknumber desc limit 1
+    </select>
+</mapper>

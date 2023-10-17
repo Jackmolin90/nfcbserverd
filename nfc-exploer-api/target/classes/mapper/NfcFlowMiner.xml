@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.mapper.NfcFlowMinerMapper">
+
+    <select id="getPageList" resultType="com.imooc.pojo.NfcFlowMiner" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select a.*,b.ful_balance surplusful from nfc_flow_miner  a left  join addresses b on a.revenue_address=b.address
+        <where>
+            <choose>
+                <when test="nfcFlowMinerQueryForm.isLike == true" >
+                    <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+                        and a.revenue_address like concat('%',#{nfcFlowMinerQueryForm.revenue_address},'%')
+                    </if>
+                    <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                        and a.miner_addr  like concat('%',#{nfcFlowMinerQueryForm.miner_addr},'%')
+                    </if>
+                </when>
+                <otherwise>
+                    <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+                        and (a.revenue_address=#{nfcFlowMinerQueryForm.revenue_address}
+                            or   a.miner_addr=#{nfcFlowMinerQueryForm.revenue_address})
+                    </if>
+                    <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                        and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+                    </if>
+                </otherwise>
+            </choose>
+            <if test="nfcFlowMinerQueryForm.blocknumber!=null">
+                <![CDATA[ and a.blocknumber >= #{nfcFlowMinerQueryForm.blocknumber} ]]>
+            </if>
+        </where>
+        <choose>
+            <when test="nfcFlowMinerQueryForm.sortSql!=null and nfcFlowMinerQueryForm.sortSql!=''" >
+               ${nfcFlowMinerQueryForm.sortSql}
+            </when>
+            <otherwise>
+                ORDER BY a.join_time DESC
+            </otherwise>
+        </choose>
+
+        limit #{nfcFlowMinerQueryForm.current}, #{nfcFlowMinerQueryForm.size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select count(1) from nfc_flow_miner a
+        <where>
+            <choose>
+                <when test="nfcFlowMinerQueryForm.isLike == true" >
+                    <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+                        and a.revenue_address like concat('%',#{nfcFlowMinerQueryForm.revenue_address},'%')
+                    </if>
+                    <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                        and a.miner_addr  like concat('%',#{nfcFlowMinerQueryForm.miner_addr},'%')
+                    </if>
+                </when>
+                <otherwise>
+                    <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+                        and (a.revenue_address=#{nfcFlowMinerQueryForm.revenue_address}
+                        or   a.miner_addr=#{nfcFlowMinerQueryForm.revenue_address})
+                    </if>
+                    <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                        and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+                    </if>
+                </otherwise>
+            </choose>
+            <if test="nfcFlowMinerQueryForm.blocknumber!=null">
+                <![CDATA[ and a.blocknumber >= #{nfcFlowMinerQueryForm.blocknumber} ]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="getMinerRankPageList" resultType="com.imooc.pojo.NfcFlowMiner" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select a.miner_addr,a.pledge_amount,a.revenue_address,a.revenue_amount,
+             a.bandwidth,a.miner_flow,c.dayProfitamount ,c.dayFlow,a.miner_status,a.addpool
+        from nfc_flow_miner  a
+        LEFT JOIN
+        (select en_address,sum(profitamount)dayProfitamount, sum(flow_value) dayFlow from nfc_clt_flwdata_day where fwflag=0 and  left(report_time,10)=#{nfcFlowMinerQueryForm.time} GROUP BY en_address ) c
+            on a.miner_addr=c.en_address
+         where 1=1
+        <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+            and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+        </if> 
+        <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+            and (a.revenue_address=#{nfcFlowMinerQueryForm.revenue_address}
+            or a.miner_addr=#{nfcFlowMinerQueryForm.revenue_address})
+        </if>
+        ${nfcFlowMinerQueryForm.sortSql}
+        limit #{nfcFlowMinerQueryForm.current}, #{nfcFlowMinerQueryForm.size}
+    </select>
+
+    <select id="getMinerRankTotal" resultType="java.lang.Long" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select count(1) from nfc_flow_miner a where 1=1
+        <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+            and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+        </if>
+        <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+            and (a.revenue_address=#{nfcFlowMinerQueryForm.revenue_address}
+            or a.miner_addr=#{nfcFlowMinerQueryForm.revenue_address})
+        </if>
+    </select>
+    <select id="getNfcFlowMinerDetail" resultType="com.imooc.pojo.NfcFlowMiner" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select a.*,b.ful_balance surplusful from nfc_flow_miner  a left  join addresses b on a.revenue_address=b.address
+               where miner_addr = #{nfcFlowMinerQueryForm.miner_addr}
+    </select>
+
+    <select id="getMinerDayStatislist" resultType="com.imooc.pojo.vo.NfcFlowMinerDayVo" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select fwflag,m.miner_addr,m.revenue_address,ifnull(m.bandwidth,0) bandwidth,ifnull(n.minerflow,0)minerflow , report_time time,n.ctime, fulnum,profitamount   from nfc_flow_miner m  INNER JOIN
+           (select fwflag,report_time,en_address, sum(flow_value) minerflow,sum(profitamount) profitamount,sum(fulnum) fulnum,max(report_time) ctime from nfc_clt_flwdata_day
+            <where>
+                <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                    and en_address=#{nfcFlowMinerQueryForm.miner_addr}
+                </if>
+                <if test="nfcFlowMinerQueryForm.time!=null and nfcFlowMinerQueryForm.time!=''">
+                    <choose>
+                        <when test="nfcFlowMinerQueryForm.timeEqual == true" >
+                            and LEFT(report_time,10)=#{nfcFlowMinerQueryForm.time}
+                        </when>
+                        <otherwise>
+                            <![CDATA[ and LEFT(report_time,10)>=#{nfcFlowMinerQueryForm.time} ]]>
+                        </otherwise>
+                    </choose>
+
+                </if>
+            </where>
+            GROUP BY en_address, LEFT(report_time,10),fwflag )n
+           on m.miner_addr = n.en_address
+        <where>
+            <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                and m.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+            </if>
+        </where>
+    </select>
+
+    <select id="getMinerDayStatisCount" resultType="java.lang.Long" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select count(1)   from nfc_flow_miner m  INNER JOIN
+        (select report_time,en_address, sum(flow_value) minerflow,max(report_time) ctime from nfc_clt_flwdata_day
+        <where>
+            <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                and en_address=#{nfcFlowMinerQueryForm.miner_addr}
+            </if>
+            <if test="nfcFlowMinerQueryForm.time!=null and nfcFlowMinerQueryForm.time!=''">
+                <choose>
+                    <when test="nfcFlowMinerQueryForm.timeEqual == true" >
+                        and LEFT(report_time,10)=#{nfcFlowMinerQueryForm.time}
+                    </when>
+                    <otherwise>
+                        <![CDATA[ and LEFT(report_time,10)>=#{nfcFlowMinerQueryForm.time} ]]>
+                    </otherwise>
+                </choose>
+
+            </if>
+        </where>
+        GROUP BY en_address,LEFT(report_time,10),fwflag )n
+        on m.miner_addr = n.en_address
+        <where>
+            <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                and m.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+            </if>
+        </where>
+    </select>
+
+    <select id="getNodeCount" resultType="java.lang.Long" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select count(1) nodeCount from nfc_node_miner
+        where  ifnull(node_type,1)!=3
+        <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+            and revenue_address=#{nfcFlowMinerQueryForm.revenue_address}
+        </if>
+    </select>
+
+    <select id="getStatisByReAddress" resultType="com.imooc.pojo.NfcFlowMiner" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select IFNULL(sum(payful),0) payful ,ifnull(sum(revenue_amount),0) revenue_amount
+        from nfc_flow_miner a where a.revenue_address=#{nfcFlowMinerQueryForm.revenue_address}
+    </select>
+
+    <select id="nfcFlowCltDetail" resultType="com.imooc.pojo.NfcCltFlwdata" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select b.*
+        from nfc_clt_flwdata  b where b.trans_hash=#{nfcFlowMinerQueryForm.hash}
+
+    </select>
+
+
+    <select id="getNfcCltPageList" resultType="com.imooc.pojo.NfcCltFlwdata" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select b.*,a.bandwidth,b.lockamount  lock_amount,b.releaseamount release_amount,a.revenue_address
+            from nfc_clt_flwdata_day  b , nfc_flow_miner a where b.en_address=a.miner_addr
+            <choose>
+                <when test="nfcFlowMinerQueryForm.isLike == true" >
+                    <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+                        and a.revenue_address like concat('%',#{nfcFlowMinerQueryForm.revenue_address},'%')
+                    </if>
+                    <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                        and a.miner_addr  like concat('%',#{nfcFlowMinerQueryForm.miner_addr},'%')
+                    </if>
+                </when>
+                <otherwise>
+                    <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+                        and a.revenue_address=#{nfcFlowMinerQueryForm.revenue_address}
+                    </if>
+                    <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                        and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+                    </if>
+                </otherwise>
+            </choose>
+            <if test="nfcFlowMinerQueryForm.time!=null and nfcFlowMinerQueryForm.time!=''" >
+                and LEFT(report_time,10)=#{nfcFlowMinerQueryForm.time}
+            </if>
+        ORDER BY b.instime DESC limit #{nfcFlowMinerQueryForm.current}, #{nfcFlowMinerQueryForm.size}
+    </select>
+
+    <select id="getNfcCltTotal" resultType="java.lang.Long" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select count(1)  from nfc_clt_flwdata_day  b , nfc_flow_miner a where b.en_address=a.miner_addr
+        <choose>
+            <when test="nfcFlowMinerQueryForm.isLike == true" >
+                <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+                    and a.revenue_address like concat('%',#{nfcFlowMinerQueryForm.revenue_address},'%')
+                </if>
+                <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                    and a.miner_addr  like concat('%',#{nfcFlowMinerQueryForm.miner_addr},'%')
+                </if>
+            </when>
+            <otherwise>
+                <if test="nfcFlowMinerQueryForm.revenue_address!=null and nfcFlowMinerQueryForm.revenue_address!=''">
+                    and a.revenue_address=#{nfcFlowMinerQueryForm.revenue_address}
+                </if>
+                <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+                    and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+                </if>
+            </otherwise>
+        </choose>
+        <if test="nfcFlowMinerQueryForm.time!=null and nfcFlowMinerQueryForm.time!=''" >
+            and LEFT(report_time,10)=#{nfcFlowMinerQueryForm.time}
+        </if>
+    </select>
+
+    <select id="getNfcCltDetailPageList" resultType="com.imooc.pojo.NfcCltFlwdata" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select b.*,a.bandwidth,a.lock_amount,a.release_amount,a.revenue_address
+        from nfc_clt_flwdata  b , nfc_flow_miner a where b.en_address=a.miner_addr
+        and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+        and LEFT(b.report_time,10) = #{nfcFlowMinerQueryForm.time}
+        ORDER BY b.instime DESC limit #{nfcFlowMinerQueryForm.current}, #{nfcFlowMinerQueryForm.size}
+    </select>
+    <select id="getNfcCltDetailTotal" resultType="java.lang.Long" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select count(1)  from nfc_clt_flwdata  b , nfc_flow_miner a
+        where b.en_address=a.miner_addr
+          and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+          and LEFT(b.report_time,10) = #{nfcFlowMinerQueryForm.time}
+    </select>
+
+    <insert id="saveOrUpdata">
+        insert  into nfc_flow_miner
+        (
+            miner_addr,revenue_address,miner_status,blocknumber,sync_time
+        ) values
+            (
+                #{nfcFlowMiner.miner_addr},#{nfcFlowMiner.revenue_address},
+                 #{nfcFlowMiner.miner_status},#{nfcFlowMiner.blocknumber},#{nfcFlowMiner.sync_time}
+            )
+            ON DUPLICATE KEY UPDATE
+                                 revenue_address=values(revenue_address),
+                                 miner_status=VALUES(miner_status),
+                                 blocknumber=VALUES(blocknumber),
+                                 sync_time=VALUES(sync_time)
+    </insert>
+    <update id="updateFlowMiner">
+         update nfc_flow_miner set sync_time=#{nfcFlowMiner.sync_time}
+        <if test="nfcFlowMiner.revenue_address!=null">
+            , revenue_address = #{nfcFlowMiner.revenue_address}
+        </if>
+        <if test="nfcFlowMiner.line_type!=null">
+           , line_type = #{nfcFlowMiner.line_type}
+        </if>
+        <if test="nfcFlowMiner.miner_status!=null">
+            , miner_status = #{nfcFlowMiner.miner_status}
+        </if>
+        <if test="nfcFlowMiner.addpool!=null">
+            , addpool = #{nfcFlowMiner.addpool}
+        </if>
+        <if test="nfcFlowMiner.bandwidth!=null">
+            , bandwidth =  #{nfcFlowMiner.bandwidth}
+        </if>
+        <if test="nfcFlowMiner.pledge_amount!=null">
+            , pledge_amount = #{nfcFlowMiner.pledge_amount}
+        </if>
+        <if test="nfcFlowMiner.miner_flow!=null">
+            , miner_flow = #{nfcFlowMiner.miner_flow}
+        </if>
+        <if test="nfcFlowMiner.payful!=null">
+            , payful = #{nfcFlowMiner.payful}
+        </if>
+        <if test="nfcFlowMiner.revenue_amount!=null">
+            , revenue_amount = #{nfcFlowMiner.revenue_amount}
+        </if>
+        <if test="nfcFlowMiner.release_amount!=null">
+            , release_amount = #{nfcFlowMiner.release_amount}
+        </if>
+        <if test="nfcFlowMiner.blocknumber!=null">
+            , blocknumber = #{nfcFlowMiner.blocknumber}
+        </if>
+        <if test="nfcFlowMiner.join_time!=null">
+            , join_time = #{nfcFlowMiner.join_time}
+        </if>
+        where miner_addr=#{nfcFlowMiner.miner_addr}
+    </update>
+
+    <update id="updateFlowMinerBatch" parameterType="java.util.List">
+        <foreach collection="list" item="nfcFlowMiner" index="index" open="" close=""  separator=";">
+            update nfc_flow_miner
+            <set>
+            <if test="nfcFlowMiner.miner_flow!=null">
+                miner_flow = #{nfcFlowMiner.miner_flow},
+            </if>
+            <if test="nfcFlowMiner.payful!=null">
+                 payful = #{nfcFlowMiner.payful},
+            </if>
+            <if test="nfcFlowMiner.revenue_amount!=null">
+                revenue_amount = #{nfcFlowMiner.revenue_amount},
+            </if>
+            <if test="nfcFlowMiner.release_amount!=null">
+                release_amount = #{nfcFlowMiner.release_amount},
+            </if>
+            <if test="nfcFlowMiner.lock_amount!=null">
+                lock_amount = #{nfcFlowMiner.lock_amount},
+            </if>
+                sync_time=#{nfcFlowMiner.sync_time}
+            </set>
+            where miner_addr=#{nfcFlowMiner.miner_addr}
+        </foreach>
+    </update>
+
+    <select id="getSingleMiner" resultType="com.imooc.pojo.NfcFlowMiner">
+           select * from nfc_flow_miner where miner_addr=#{miner_addr}
+    </select>
+
+    <select id="getBandwidthConfig" resultType="com.imooc.pojo.NfcBandwidthConfig">
+        select * from nfc_bandwidth_config order by min
+    </select>
+
+    <select id="getMinerSum" resultType="com.imooc.pojo.NfcFlowMiner">
+        select IFNULL(sum(bandwidth),0) bandwidth,IFNULL(sum(revenue_amount),0)revenue_amount,IFNULL(sum(miner_flow),0)miner_flow
+        from nfc_flow_miner
+    </select>
+
+
+    <select id="getAuthCfgByAppid" resultType="com.imooc.pojo.vo.AuthCfg">
+        select  *  from tj_wallet_server.nfc_pool_authcfg WHERE appid=#{appid}
+    </select>
+
+    <select id="getArea" resultType="com.imooc.pojo.vo.Area">
+        select  *  from tj_wallet_server.tj_area
+    </select>
+
+    <select id="getOperatorConfig" resultType="com.imooc.pojo.vo.OperatorConfig">
+        select  id,operator_code,operator_name  from tj_wallet_server.tj_operator_config
+    </select>
+
+    <insert id="saveOrUpdataFlwData">
+        insert  into nfc_clt_flwdata
+        (
+            en_address,report_time,flow_value,fulnum,profitamount,router_address,from_addr,to_addr,router_ipaddr,
+            trans_hash,instime,blocknumber
+        ) values
+            (
+                #{nfcCltFlwdata.en_address},#{nfcCltFlwdata.report_time},
+                #{nfcCltFlwdata.flow_value},#{nfcCltFlwdata.fulnum},#{nfcCltFlwdata.profitamount},
+                #{nfcCltFlwdata.router_address},#{nfcCltFlwdata.from_addr},#{nfcCltFlwdata.to_addr},,#{nfcCltFlwdata.router_ipaddr},
+                #{nfcCltFlwdata.trans_hash},#{nfcCltFlwdata.instime},
+                #{nfcCltFlwdata.blocknumber}
+            )
+            ON DUPLICATE KEY UPDATE
+                                 flow_value=values(flow_value),
+                                 fulnum=VALUES(fulnum),
+                                 profitamount=VALUES(profitamount),
+                                 instime=VALUES(instime),
+                                 blocknumber = VALUES(blocknumber)
+    </insert>
+
+
+    <insert id="saveOrUpdataFlwDataDay">
+        insert  into nfc_clt_flwdata_day
+        (
+            en_address,report_time,flow_value,real_value,fulnum,profitamount,instime,blocknumber,fwflag
+        ) values
+            (
+                #{nfcCltFlwdata.en_address},#{nfcCltFlwdata.report_time},#{nfcCltFlwdata.flow_value},#{nfcCltFlwdata.real_value},
+                #{nfcCltFlwdata.fulnum},#{nfcCltFlwdata.profitamount},#{nfcCltFlwdata.instime},
+                #{nfcCltFlwdata.blocknumber},#{nfcCltFlwdata.fwflag}
+            )
+            ON DUPLICATE KEY UPDATE
+                                 flow_value=values(flow_value),
+                                 real_value=values(real_value),
+                                 fulnum=VALUES(fulnum),
+                                 profitamount=VALUES(profitamount),
+                                 instime=VALUES(instime),
+                                 blocknumber = VALUES(blocknumber)
+    </insert>
+
+    <insert id="batchSaveFlwDataDay"  parameterType="java.util.List">
+        insert  into nfc_clt_flwdata_day
+        (
+        en_address,report_time,flow_value,real_value,fulnum,profitamount,instime,blocknumber,fwflag
+        ) values
+        <foreach collection="list" item="nfcCltFlwdata" index="index" separator=",">
+            (
+            #{nfcCltFlwdata.en_address},#{nfcCltFlwdata.report_time},#{nfcCltFlwdata.flow_value},#{nfcCltFlwdata.real_value},
+             #{nfcCltFlwdata.fulnum},#{nfcCltFlwdata.profitamount},#{nfcCltFlwdata.instime},
+            #{nfcCltFlwdata.blocknumber},#{nfcCltFlwdata.fwflag}
+            )
+        </foreach>
+    </insert>
+
+    <update id="batchUpdateFlwDataDay" parameterType="java.util.List">
+        <foreach collection="list" item="nfcCltFlwdata" index="index" open="" close=""  separator=";">
+            update nfc_clt_flwdata_day
+            <set>
+                lockamount=#{nfcCltFlwdata.lockamount},
+                releaseamount=#{nfcCltFlwdata.releaseamount},
+            </set>
+            where id=#{nfcCltFlwdata.id}
+        </foreach>
+    </update>
+
+    <insert id="batchSaveFlwDataDetail"  parameterType="java.util.List">
+        insert  into nfc_clt_flwdata
+        (
+        en_address,report_time,flow_value,fulnum,profitamount,router_address,from_addr,to_addr,router_ipaddr,
+        trans_hash,instime,blocknumber
+        ) values
+        <foreach collection="list" item="nfcCltFlwdata" index="index" separator=",">
+            (
+            #{nfcCltFlwdata.en_address},#{nfcCltFlwdata.report_time},
+            #{nfcCltFlwdata.flow_value},#{nfcCltFlwdata.fulnum},#{nfcCltFlwdata.profitamount},
+            #{nfcCltFlwdata.router_address},#{nfcCltFlwdata.from_addr},#{nfcCltFlwdata.to_addr},#{nfcCltFlwdata.router_ipaddr},
+            #{nfcCltFlwdata.trans_hash},#{nfcCltFlwdata.instime},
+            #{nfcCltFlwdata.blocknumber}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertNfcNetStatics">
+        insert into nfc_net_statics
+        (
+            ctime,nfc_gbRate,total_nfc,totalflow,incre_flow,total_bw,incre_bw
+        ) values
+            (
+                #{nns.ctime},#{nns.nfc_gbRate},#{nns.total_nfc},#{nns.totalflow}
+            ,#{nns.incre_flow},#{nns.total_bw},#{nns.incre_bw}
+            ) ON DUPLICATE KEY UPDATE
+                 nfc_gbRate=values(nfc_gbRate),
+                 total_nfc=VALUES(total_nfc),
+                 totalflow=VALUES(totalflow),
+                incre_flow=VALUES(incre_flow),
+                total_bw=VALUES(total_bw),
+                incre_bw=VALUES(incre_bw)
+    </insert>
+
+    <select id="queryNfcNetStaticsByCtime" resultType="com.imooc.pojo.NfcNetStatics">
+           select * from nfc_net_statics where  LEFT(ctime,10)=#{ctime}
+    </select>
+
+    <select id="queryNfcNetStaticsBetwentime" resultType="com.imooc.pojo.NfcNetStatics">
+        select * from nfc_net_statics
+        where  <![CDATA[ LEFT(ctime,10)>=#{startTime} and LEFT(ctime,10)<=#{endTime} ]]>
+    </select>
+
+    <select id="queryNfcCltFlwdataDayByTime" resultType="com.imooc.pojo.NfcCltFlwdata">
+        select ifnull(sum(flow_value),0) flow_value,ifnull(SUM(profitamount),0) profitamount
+        from nfc_clt_flwdata_day where fwflag=0 and LEFT(report_time,10) = #{ctime}
+    </select>
+
+    <select id="queryNfcCltFlwdataDayByAddress" resultType="com.imooc.pojo.NfcCltFlwdata">
+        select ifnull(sum(flow_value),0) flow_value,ifnull(SUM(profitamount),0) profitamount,
+               ifnull(SUM(fulnum),0) fulnum
+        from nfc_clt_flwdata_day where  en_address = #{address}
+    </select>
+    <!-- 
+    <select id="queryNfcCltFlwdataDayGroupBYAddress" resultType="com.imooc.pojo.NfcCltFlwdata">
+        select en_address,ifnull(sum(flow_value),0) flow_value,ifnull(SUM(profitamount),0) profitamount,
+               ifnull(SUM(fulnum),0) fulnum
+        from nfc_clt_flwdata_day group by en_address
+    </select>
+     -->
+    <select id="queryNfcCltFlwdataDayGroupBYAddress" resultType="com.imooc.pojo.NfcCltFlwdata">
+        select miner_addr en_address,ifnull(sum(flow_value),0) flow_value,ifnull(sum(ful),0) fulnum 
+        from flow_report t where t.status =1 group by miner_addr
+    </select>
+    
+    <select id="getAllMinerAddress" resultType="com.imooc.pojo.NfcFlowMiner">
+        select miner_addr from nfc_flow_miner
+    </select>
+
+    <select id="getNetServiceRankTotal" resultType="java.lang.Long" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        SELECT count(1) from (
+                             select m.revenue_address
+                             from  (SELECT en_address,sum(d.flow_value) flow_value,SUM(d.profitamount) profitamount from  nfc_clt_flwdata_day d where d.fwflag=0 and left(d.report_time,10)=#{nfcFlowMinerQueryForm.time} GROUP BY en_address)d,
+                                  nfc_flow_miner m
+                             where d.en_address=m.miner_addr and miner_status!=3
+                             GROUP BY m.revenue_address
+                         ) t
+    </select>
+
+    <select id="getNetServiceRankList" resultType="com.imooc.pojo.vo.NetRankVo" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        SELECT * from (
+         select m.revenue_address,sum(d.flow_value)flow_value,
+                (case when sum(d.flow_value)=0 then 0 else  round(SUM(d.profitamount)*1024/1000000000000000000/sum(d.flow_value),8) end ) outEfficiency,
+                (case when #{nfcFlowMinerQueryForm.bandwidth}=0 then 0 else round(sum(m.bandwidth)/#{nfcFlowMinerQueryForm.bandwidth},2) end)perComPower
+         from
+             (SELECT en_address,sum(d.flow_value) flow_value,SUM(d.profitamount) profitamount from  nfc_clt_flwdata_day d where d.fwflag=0 and left(d.report_time,10)=#{nfcFlowMinerQueryForm.time} GROUP BY en_address)d
+              ,nfc_flow_miner m
+         where d.en_address=m.miner_addr and miner_status!=3
+         GROUP BY m.revenue_address
+                             ) t
+          order by outEfficiency desc limit #{nfcFlowMinerQueryForm.current}, #{nfcFlowMinerQueryForm.size}
+    </select>
+
+    <select id="getFlwDataDayListByReportTime" resultType="com.imooc.pojo.NfcCltFlwdata">
+        select id,en_address,IFNULL(fwflag,0)fwflag  from nfc_clt_flwdata_day where LEFT(report_time,10) = #{ctime}
+    </select>
+    
+    
+    
+    <select id="getFlowReportPageList" resultType="com.imooc.pojo.FlowReport" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select a.*,t.timestamp
+        from flow_report  a
+        left join blocks t on a.blocknumber = t.blocknumber         
+         where status=1
+        <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+            and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+        </if>
+        <if test="nfcFlowMinerQueryForm.client_addr!=null and nfcFlowMinerQueryForm.client_addr!=''">
+            and a.client_addr=#{nfcFlowMinerQueryForm.client_addr}
+        </if>
+        <if test="nfcFlowMinerQueryForm.starttime !=null">
+            <![CDATA[ and unix_timestamp(t.timestamp)*1000 >= #{nfcFlowMinerQueryForm.starttime} ]]>
+        </if>
+        <if test="nfcFlowMinerQueryForm.endtime !=null">
+            <![CDATA[ and unix_timestamp(t.timestamp)*1000 <= #{nfcFlowMinerQueryForm.endtime} ]]>
+        </if>
+        order by id desc
+        limit #{nfcFlowMinerQueryForm.current}, #{nfcFlowMinerQueryForm.size}
+    </select>
+
+    <select id="getFlowReportTotal" resultType="java.lang.Long" parameterType="com.imooc.pojo.Form.NfcFlowMinerQueryForm">
+        select count(1) from flow_report a
+        left join blocks t on a.blocknumber = t.blocknumber
+        where status=1
+        <if test="nfcFlowMinerQueryForm.miner_addr!=null and nfcFlowMinerQueryForm.miner_addr!=''">
+            and a.miner_addr=#{nfcFlowMinerQueryForm.miner_addr}
+        </if>
+        <if test="nfcFlowMinerQueryForm.client_addr!=null and nfcFlowMinerQueryForm.client_addr!=''">
+            and a.client_addr=#{nfcFlowMinerQueryForm.client_addr}
+        </if>
+        <if test="nfcFlowMinerQueryForm.starttime !=null">
+            <![CDATA[ and unix_timestamp(t.timestamp)*1000 >= #{nfcFlowMinerQueryForm.starttime} ]]>
+        </if>
+        <if test="nfcFlowMinerQueryForm.endtime !=null">
+            <![CDATA[ and unix_timestamp(t.timestamp)*1000 <= #{nfcFlowMinerQueryForm.endtime} ]]>
+        </if>
+    </select>
+    
+    <insert id="saveOrUpdateFlowReport">
+		insert into flow_report (
+		  miner_addr,  enid,  deviceid,  client_addr, report_number, flow_value, ful, status, blocknumber, blockhash
+		) values (
+          #{flowReport.miner_addr},#{flowReport.enid},#{flowReport.deviceid},#{flowReport.client_addr},#{flowReport.report_number},#{flowReport.flow_value},#{flowReport.ful},
+          #{flowReport.status},#{flowReport.blocknumber},#{flowReport.blockhash}
+        ) ON DUPLICATE KEY UPDATE                
+          report_number=VALUES(report_number),
+          flow_value=VALUES(flow_value),
+          status=VALUES(status),
+          ful=VALUES(ful)
+    </insert>
+    
+    
+</mapper>

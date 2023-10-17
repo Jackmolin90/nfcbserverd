@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.mapper.NfcExchgListMapper">
+
+    <resultMap id="BaseNfcExhg" type="com.imooc.pojo.vo.NfcExchgList">
+        <result column="exchgid"  property="exchgid" jdbcType="VARCHAR"/>
+        <result column="exchg_type"  property="exchgType" jdbcType="VARCHAR"/>
+        <result column="approve_status"  property="approveStatus" jdbcType="INTEGER"/>
+        <result column="apply_addr"  property="applyAddr" jdbcType="VARCHAR"/>
+        <result column="exchg_ipaddr"  property="exchgIpaddr" jdbcType="VARCHAR"/>
+        <result column="exchg_num"  property="exchgNum" jdbcType="DECIMAL"/>
+        <result column="exchg_token"  property="exchgToken" jdbcType="DECIMAL"/>
+        <result column="apply_hash"  property="applyHash" jdbcType="VARCHAR"/>
+        <result column="exchg_from"  property="exchgFrom" jdbcType="VARCHAR"/>
+        <result column="exchg_hash"  property="exchgHash" jdbcType="VARCHAR"/>
+        <result column="exchg_status"  property="exchgStatus" jdbcType="INTEGER"/>
+        <result column="trans_time"  property="transTime" jdbcType="TIMESTAMP"/>
+        <result column="synctime"  property="synctime" jdbcType="TIMESTAMP"/>
+        <result column="blocknumber"  property="blocknumber" jdbcType="BIGINT"/>
+        <result column="trans_error"  property="transError" jdbcType="VARCHAR"/>
+        <result column="exchg_mode"  property="exchgMode" jdbcType="INTEGER"/>
+        <result column="lockday"  property="lockday" jdbcType="INTEGER"/>
+        <result column="releaseday"  property="releaseday" jdbcType="INTEGER"/>
+        <result column="tradetime"  property="tradetime" jdbcType="TIMESTAMP"/>
+        <result column="exchg_token"  property="exchgToken" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <select id="getContractPageTokenList" resultMap="BaseNfcExhg">
+        select * from nfc_exchg_list a
+        where
+              a.exchg_ipaddr = #{queryForm.query}
+        order by a.blocknumber desc limit #{queryForm.index}, #{queryForm.size}
+    </select>
+
+    <select id="getContractTokenCount" resultType="java.lang.Long">
+        select count(1) from nfc_exchg_list a
+        where
+            a.exchg_ipaddr = #{queryForm.query}
+    </select>
+
+    <select id="statisLock" resultType="java.lang.Double">
+        select ifnull(sum(exchg_token),0) from nfc_exchg_list a
+        where
+            a.exchg_ipaddr = #{exchgIpaddr} and exchg_status = 1
+    </select>
+
+</mapper>

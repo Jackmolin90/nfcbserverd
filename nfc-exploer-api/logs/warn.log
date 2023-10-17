@@ -1,0 +1,145 @@
+2022-11-21 16:20:11,455 [main] [org.springframework.boot.autoconfigure.thymeleaf.AbstractTemplateResolverConfiguration.checkTemplateLocationExists(AbstractTemplateResolverConfiguration.java:60)] - [WARN] Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-11-21 16:20:19,824 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-21 16:20:20,278 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-21 16:20:20,874 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-21 16:20:20,896 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:51:06,217 [main] [org.springframework.boot.autoconfigure.thymeleaf.AbstractTemplateResolverConfiguration.checkTemplateLocationExists(AbstractTemplateResolverConfiguration.java:60)] - [WARN] Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-11-22 08:51:12,580 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:51:13,070 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:51:13,678 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:51:13,699 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:53:16,343 [main] [org.springframework.boot.autoconfigure.thymeleaf.AbstractTemplateResolverConfiguration.checkTemplateLocationExists(AbstractTemplateResolverConfiguration.java:60)] - [WARN] Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-11-22 08:53:19,093 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:53:19,483 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:53:19,859 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:53:19,870 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:57:47,456 [main] [org.springframework.boot.autoconfigure.thymeleaf.AbstractTemplateResolverConfiguration.checkTemplateLocationExists(AbstractTemplateResolverConfiguration.java:60)] - [WARN] Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-11-22 08:57:50,092 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:57:50,459 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:57:51,009 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-22 08:57:51,024 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-29 16:20:48,491 [main] [org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)] - [WARN] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController': Unsatisfied dependency expressed through field 'accountService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountServiceImpl': Unsatisfied dependency expressed through field 'accountMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountMapper' defined in file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-mapper\target\classes\com\imooc\mapper\AccountMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [tk/mybatis/mapper/autoconfigure/MapperAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.imooc.mapper.ContractMapper.BaseResultMapAccount
+2022-11-29 16:20:48,570 [main] [org.springframework.boot.SpringApplication.reportFailure(SpringApplication.java:771)] - [ERROR] Application startup failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountController': Unsatisfied dependency expressed through field 'accountService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountServiceImpl': Unsatisfied dependency expressed through field 'accountMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountMapper' defined in file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-mapper\target\classes\com\imooc\mapper\AccountMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [tk/mybatis/mapper/autoconfigure/MapperAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.imooc.mapper.ContractMapper.BaseResultMapAccount
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1268)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107)
+	at com.imooc.Application.main(Application.java:20)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountServiceImpl': Unsatisfied dependency expressed through field 'accountMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountMapper' defined in file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-mapper\target\classes\com\imooc\mapper\AccountMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [tk/mybatis/mapper/autoconfigure/MapperAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.imooc.mapper.ContractMapper.BaseResultMapAccount
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1268)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 19 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accountMapper' defined in file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-mapper\target\classes\com\imooc\mapper\AccountMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [tk/mybatis/mapper/autoconfigure/MapperAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.imooc.mapper.ContractMapper.BaseResultMapAccount
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1253)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 32 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [tk/mybatis/mapper/autoconfigure/MapperAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.imooc.mapper.ContractMapper.BaseResultMapAccount
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1177)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1071)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:513)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1346)
+	... 43 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.imooc.mapper.ContractMapper.BaseResultMapAccount
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588)
+	... 55 more
+Caused by: org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.imooc.mapper.ContractMapper.BaseResultMapAccount
+	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:523)
+	at org.mybatis.spring.SqlSessionFactoryBean.afterPropertiesSet(SqlSessionFactoryBean.java:380)
+	at org.mybatis.spring.SqlSessionFactoryBean.getObject(SqlSessionFactoryBean.java:547)
+	at tk.mybatis.mapper.autoconfigure.MapperAutoConfiguration.sqlSessionFactory(MapperAutoConfiguration.java:155)
+	at tk.mybatis.mapper.autoconfigure.MapperAutoConfiguration$$EnhancerBySpringCGLIB$$99fd8a7a.CGLIB$sqlSessionFactory$0(<generated>)
+	at tk.mybatis.mapper.autoconfigure.MapperAutoConfiguration$$EnhancerBySpringCGLIB$$99fd8a7a$$FastClassBySpringCGLIB$$92b165d6.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358)
+	at tk.mybatis.mapper.autoconfigure.MapperAutoConfiguration$$EnhancerBySpringCGLIB$$99fd8a7a.sqlSessionFactory(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162)
+	... 56 more
+Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [E:\workspace\blockchain\nfcbserverd\nfc-exploer-api\target\classes\mapper\ContractverifiedMapper.xml]'. Cause: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.imooc.mapper.ContractMapper.BaseResultMapAccount
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:122)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:94)
+	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:521)
+	... 69 more
+Caused by: java.lang.IllegalArgumentException: Result Maps collection already contains value for com.imooc.mapper.ContractMapper.BaseResultMapAccount
+	at org.apache.ibatis.session.Configuration$StrictMap.put(Configuration.java:947)
+	at org.apache.ibatis.session.Configuration$StrictMap.put(Configuration.java:903)
+	at org.apache.ibatis.session.Configuration.addResultMap(Configuration.java:660)
+	at org.apache.ibatis.builder.MapperBuilderAssistant.addResultMap(MapperBuilderAssistant.java:209)
+	at org.apache.ibatis.builder.ResultMapResolver.resolve(ResultMapResolver.java:47)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.resultMapElement(XMLMapperBuilder.java:289)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.resultMapElement(XMLMapperBuilder.java:253)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.resultMapElements(XMLMapperBuilder.java:245)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:118)
+	... 71 more
+2022-11-29 16:23:05,442 [main] [org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)] - [WARN] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'explorerJob': Unsatisfied dependency expressed through field 'contractService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'contractService': Unsatisfied dependency expressed through field 'addressService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'addressService': Unsatisfied dependency expressed through field 'web3jService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'web3jService': Unsatisfied dependency expressed through field 'web3j'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.web3j.protocol.Web3j' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2022-11-29 16:23:05,620 [main] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter.report(LoggingFailureAnalysisReporter.java:42)] - [ERROR] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field web3j in com.imooc.controller.job.service.Web3jService required a bean of type 'org.web3j.protocol.Web3j' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.web3j.protocol.Web3j' in your configuration.
+
+2022-11-29 16:24:18,131 [main] [org.springframework.boot.autoconfigure.thymeleaf.AbstractTemplateResolverConfiguration.checkTemplateLocationExists(AbstractTemplateResolverConfiguration.java:60)] - [WARN] Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-11-29 16:24:21,439 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-29 16:24:21,912 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-29 16:24:22,258 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality
+2022-11-29 16:24:22,270 [main] [springfox.documentation.swagger.readers.operation.OperationImplicitParameterReader.maybeGetModelRef(OperationImplicitParameterReader.java:88)] - [WARN] Coercing to be of type string. This may not even be a scalar type in actuality

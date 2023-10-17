@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.mapper.TokenMapper">
+    <resultMap id="BaseResultMapAccount" type="com.imooc.pojo.Tokens">
+        <result column="contract"  property="contract" jdbcType="VARCHAR"/>
+        <result column="type"  property="type" jdbcType="INTEGER"/>
+        <result column="name"  property="name" jdbcType="VARCHAR"/>
+        <result column="symbol"  property="symbol" jdbcType="VARCHAR"/>
+        <result column="decimals"  property="decimals" jdbcType="INTEGER"/>
+        <result column="totalsupply"  property="totalSupply" jdbcType="DECIMAL"/>
+        <result column="cataloged"  property="cataloged" jdbcType="INTEGER"/>
+        <result column="contractmanager"  property="contractManager" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getTokenSupply" parameterType="java.lang.String" resultMap="BaseResultMapAccount">
+        select * from tokens where contract =#{contractAddress}
+    </select>
+
+    <select id="getTokens" parameterType="java.lang.String" resultType="com.imooc.pojo.Tokens">
+        select * from tokens where contract =#{contract}
+    </select>
+
+
+    <insert id="saveOrUpdate">
+      insert  into tokens
+        (
+         contract,type,name,symbol,decimals,totalsupply,cataloged,description,contractmanager
+        ) values
+     (
+     #{item.contract},#{item.type},#{item.name},#{item.symbol},#{item.decimals},#{item.totalSupply},#{item.cataloged},#{item.description},#{item.contractManager}
+     )
+      ON DUPLICATE KEY UPDATE
+      contract=values(contract)
+     </insert>
+
+    <select id="getTokenListInfo" parameterType="com.imooc.pojo.Form.BlockQueryForm" resultMap="BaseResultMapAccount">
+        select * from tokens a
+        <where>
+            <if test="blockQueryForm.type!=null and blockQueryForm.type!='' ">
+                and a.type=#{blockQueryForm.type}
+            </if>
+        </where>
+        ORDER BY a.totalsupply DESC limit #{blockQueryForm.current}, #{blockQueryForm.size}
+    </select>
+
+    <select id="getTotalTokens" parameterType="com.imooc.pojo.Form.BlockQueryForm" resultType="java.lang.Long">
+        select count(*) from tokens a
+        <where>
+            <if test="blockQueryForm.type!=null and blockQueryForm.type!='' ">
+                and a.type=#{blockQueryForm.type}
+            </if>
+        </where>
+    </select>
+
+    <!--获取发送和接收select IFNULL(count(contract),0) from tokens a-->
+    <select id="getCountForExit"  resultType="java.lang.Long">
+        select count(*) from tokens a where   a.type=#{tokenQueryForm.type}
+        <if test="tokenQueryForm.name!=null and tokenQueryForm.name!='' ">
+            and a.name=#{tokenQueryForm.name}
+        </if>
+        <if test="tokenQueryForm.symbol!=null and tokenQueryForm.symbol!='' ">
+            and a.symbol=#{tokenQueryForm.symbol}
+        </if>
+    </select>
+</mapper>
